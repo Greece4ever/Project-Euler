@@ -230,4 +230,16 @@ def p17():
 
     return total + len('onethousand') # 18551 no whitespace and not including 'and'
 
-print(p17())
+def p20():
+    cache = {}
+    def fact(n):
+        if n in cache:
+            return cache.get(n)
+        if n <=1:
+            return 1
+        val = fact(n-2) + fact(n-1)
+        cache[n] = val
+        return val
+    return fact(100)
+
+print(p20())
