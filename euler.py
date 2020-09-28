@@ -4,6 +4,25 @@ def isPrime(x):
             return False
     return True
 
+fib_cache = {}
+def fib(n):
+    if n in fib_cache:
+        return fib_cache.get(n)
+    if n <= 1:
+        return 1
+    seq = fib(n-2) + fib(n-1)
+    fib_cache[n] = seq;return seq
+
+fact_cache = {}
+def fact(n):
+    if n in fact_cache:
+        return fact_cache.get(n)
+    if n <=1:
+        return 1
+    val = n * fact(n-1)
+    fact_cache[n] = val
+    return val
+
 def p1():
     """multiples of 3 and 5"""
     total : int = 9 
@@ -15,14 +34,6 @@ def p1():
 
 def p2():
     """Even fibbonaci numbers"""
-    cache = {}
-    def fib(n):
-        if n in cache:
-            return cache.get(n)
-        if n <= 1:
-            return 1
-        seq = fib(n-2) + fib(n-1)
-        cache[n] = seq;return seq
     total : int = 0
     f = fib(0);i : int = 0
     while f < 4000000:
@@ -231,15 +242,37 @@ def p17():
     return total + len('onethousand') # 18551 no whitespace and not including 'and'
 
 def p20():
-    cache = {}
-    def fact(n):
-        if n in cache:
-            return cache.get(n)
-        if n <=1:
-            return 1
-        val = fact(n-2) + fact(n-1)
-        cache[n] = val
-        return val
-    return fact(100)
+    arr = [int(i) for i in str(fact(100))]
+    return sum( arr ) # 648 with 158 digits
 
-print(p20())
+...
+
+def p22():
+    with open('names.txt') as f:
+        data = f.read().replace('"','').split(",")
+    data.sort()
+    alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+    SCORES : list = [];j : int = 1
+    for name in data:
+        s : int = 0
+        for char in name:
+            s += alphabet.index(char.lower())+1 # Only ascii characters
+        SCORES.append(s*j)
+        j+=1
+    return sum(SCORES) # 871198282
+ 
+def p25():
+    i = 0
+    while len(str(fib(i))) < 4:
+        i +=1 
+    return i,fib(i)
+
+def p34():
+    i : int = 0
+    while True:
+        suma = sum([fact(int(j)) for j in str(i)])
+        if suma == i:
+            print(i,"CURIOUS")
+        i+=1
+
+print(p34())
