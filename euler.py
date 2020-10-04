@@ -67,7 +67,7 @@ def p5(): #TODO
     while not divs.count(0) == 19:
         divs = [i % d for d in range(2,21)]
         i +=1                                   
-    return i #One eternety later :
+    return i 
 
 def p6():
     """Sum square difference"""
@@ -104,18 +104,14 @@ def p8():
 
 def p9():
     """Special Pythagorean triplet"""
-    # This is bad stupid code
-    # there is no point in checking
-    # when not a < b < c
-    # do not write code like this
-    def isPythagoreanTriplet(a,b,c):
-        return (a**2 + b**2) == c**2
-    for i in range(1,1000): # 1 3 3 
-        for j in range(1,1000):
-            for k in range(1,1000):
-                if isPythagoreanTriplet(i,j,k):
-                    if(i+j+k) == 1000:
-                        return i*j*k #200 375 425
+    for i in range(1,1001):
+        j = i +1
+        while j <= 1000:
+            sq = (i**2 + j**2)**(1/2)
+            if float(sq) == int(sq):
+                if (i + j + sq) == 1000:
+                    return i*j*sq #200 375 425 fast 
+            j+=1
 
 def p10():
     total = 0
@@ -245,8 +241,6 @@ def p20():
     arr = [int(i) for i in str(fact(100))]
     return sum( arr ) # 648 with 158 digits
 
-...
-
 def p22():
     with open('names.txt') as f:
         data = f.read().replace('"','').split(",")
@@ -269,10 +263,13 @@ def p25():
 
 def p34():
     i : int = 0
+    curious : list = []
     while True:
         suma = sum([fact(int(j)) for j in str(i)])
         if suma == i:
-            print(i,"CURIOUS")
+            curious.appen(i)
         i+=1
+    return sum(curious) # There could be infinete numbers that meet this condition
 
-print(p34())
+if __name__ == "__main__":
+    p9()
